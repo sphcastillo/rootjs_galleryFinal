@@ -1,5 +1,3 @@
-/* your javascript goes here */
-
 $(document).ready(initiateApp);
 
 var pictures = [
@@ -21,21 +19,28 @@ var pictures = [
 
 function initiateApp(){
 	/*advanced: add jquery sortable call here to make the gallery able to be sorted
-		//on change, rebuild the images array into the new order
+	//on change, rebuild the images array into the new order
 	*/
+	$( function() {
+		$( "#gallery" ).sortable();
+		$( "#gallery" ).disableSelection();
+	  } );
+
 	makeGallery(pictures);
 	addModalCloseHandler();
 }
 function makeGallery(imageArray){
-	//use loops and jquery dom creation to make the html structure inside the #gallery section
+	for(i = 0; i < pictures.length; i++);
 
-	//create a loop to go through the pictures
-		//create the elements needed for each picture, store the elements in variable
+	var MyFigureElement = $("<figure>").addClass("imageGallery col-xs-12 col-sm-6 col-md-4").css("background-image","url("+ pictures[i] + ")");
+	var MyFigCaptionElement = $("<figcaption>").html(pictures[i]);
+	imageArray= MyFigCaptionElement.appendTo(MyFigureElement);
 
-		//attach a click handler to the figure you create.  call the "displayImage" function.  
+	imageArray.on("click",displayImage);
 
-		//append the element to the #gallery section
+	imageArray.appendTo("#gallery");
 
+	
 }
 
 function addModalCloseHandler(){
