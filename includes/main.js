@@ -55,8 +55,6 @@ function displayImage(){
 	$("img").attr("src",theImage);
 
 	$("#galleryModal").modal("show");
-
-
 	
 }
 
