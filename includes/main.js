@@ -59,7 +59,6 @@ function displayImage(){
 	
 }
 
-
 function addModalCloseHandler(){
 
 	$("img").on("click",modalClose);
@@ -68,4 +67,3 @@ function addModalCloseHandler(){
 		$("#galleryModal").modal("hide");
 	}
 }
-
