@@ -29,13 +29,14 @@ function initiateApp(){
 	$("figure").on("click",displayImage);
 }
 function makeGallery(imageArray){
-	for(i = 0; i < pictures.length; i++);
-
-	var MyFigureElement = $("<figure>").addClass("imageGallery col-xs-12 col-sm-6 col-md-4").css("background-image","url("+ pictures[i] + ")");
-	var MyFigCaptionElement = $("<figcaption>").html(pictures[i]);
-	imageArray= MyFigCaptionElement.appendTo(MyFigureElement);
-
-	imageArray.appendTo("#gallery");
+	for(var i = 0; i < imageArray.length; i++){
+		var MyFigureElement = $("<figure>").addClass("imageGallery col-xs-12 col-sm-6 col-md-4").css("background-image","url("+ imageArray[i] + ")");
+		
+		var MyFigCaptionElement = $("<figcaption>").html(imageArray[i]);
+		
+		MyFigCaptionElement.appendTo(MyFigureElement);
+		$("#gallery").append(MyFigureElement);
+	}
 
 }
 
