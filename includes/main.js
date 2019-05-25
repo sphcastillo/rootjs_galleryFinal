@@ -18,9 +18,7 @@ var pictures = [
 ];
 
 function initiateApp(){
-	/*advanced: add jquery sortable call here to make the gallery able to be sorted
-	//on change, rebuild the images array into the new order
-	*/
+	
 	$( function() {
 		$( "#gallery" ).sortable();
 		$( "#gallery" ).disableSelection();
@@ -28,6 +26,7 @@ function initiateApp(){
 
 	makeGallery(pictures);
 	addModalCloseHandler();
+	$("figure").on("click",displayImage);
 }
 function makeGallery(imageArray){
 	for(i = 0; i < pictures.length; i++);
@@ -36,56 +35,38 @@ function makeGallery(imageArray){
 	var MyFigCaptionElement = $("<figcaption>").html(pictures[i]);
 	imageArray= MyFigCaptionElement.appendTo(MyFigureElement);
 
-	imageArray.on("click",displayImage);
-
 	imageArray.appendTo("#gallery");
+
+}
+
+
+function displayImage(){
+	
+	var URLofImage = $(this).css("background-image");
+	console.log("hope this works",URLofImage); 
+
+	var theImage = URLofImage.slice((URLofImage.lastIndexOf("/")-6),(URLofImage.lastIndexOf('"')));
+	console.log("I see the problem", theImage);
+	
+	var ImageName = URLofImage.slice((URLofImage.lastIndexOf("/")+1),(URLofImage.lastIndexOf('"')-4)); 
+	
+	$(".modal-title").text(ImageName);
+
+	$("img").attr("src",theImage);
+
+	$("#galleryModal").modal("show");
+
 
 	
 }
 
+
 function addModalCloseHandler(){
-	//add a click handler to the img element in the image modal.  When the element is clicked, close the modal
+
 	$("img").on("click",modalClose);
 	
 	function modalClose(){
 		$("#galleryModal").modal("hide");
 	}
 }
-
-var x = "url(images/landscape-1.jpg)";
-console.log("the whole:",x);
-
-var sum = x.slice((x.lastIndexOf("/")-6),(x.lastIndexOf('"')));
-console.log("does this work?",sum);
-
-var bum = x.slice((x.lastIndexOf("/")+1),(x.lastIndexOf('"')));
-console.log("does this work?",bum);
-
-
-
-function displayImage(){
-	//find the url of the image by grabbing the background-image source, store it in a variable
-	var URLofImage = $(this).css("background-image");
-
-	//grab the direct url of the image by getting rid of the other pieces you don't need
-	var Image = URLofImage.slice((URLofImage.lastIndexOf("/")-6),(URLofImage.lastIndexOf('"')));
-
-	//grab the name from the file url, ie the part without the path.  so "images/pexels-photo-132037.jpeg" would become
-	// pexels-photo-132037
-	//take a look at the lastIndexOf method
-	var ImageName = URLofImage.slice((URLofImage.lastIndexOf("/")+1),(URLofImage.lastIndexOf('"')));
-
-	 //change the modal-title text to the name you found above
-	$(".modal-title").text(ImageName);
-
-	 //change the src of the image in the modal to the url of the image that was clicked on
-	$("img").attr("src",Image);
-
-	//show the modal with JS. 
-	$("#galleryModal").modal();
-
-}
-
-
-
 
